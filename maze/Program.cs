@@ -62,6 +62,7 @@ namespace maze
             return ParsedJsonData.nextMaze;
         }
 
+        //This function will be refactored
         static string GETData(string url)
         {
             var JsonData = GetDataFromAPI(url);
