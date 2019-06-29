@@ -1,0 +1,11 @@
+D:\noops\maze\maze\obj\Debug\netcoreapp2.2\maze.csprojAssemblyReference.cache
+D:\noops\maze\maze\obj\Debug\netcoreapp2.2\maze.csproj.CoreCompileInputs.cache
+D:\noops\maze\maze\obj\Debug\netcoreapp2.2\maze.AssemblyInfoInputs.cache
+D:\noops\maze\maze\obj\Debug\netcoreapp2.2\maze.AssemblyInfo.cs
+D:\noops\maze\maze\bin\Debug\netcoreapp2.2\maze.deps.json
+D:\noops\maze\maze\bin\Debug\netcoreapp2.2\maze.runtimeconfig.json
+D:\noops\maze\maze\bin\Debug\netcoreapp2.2\maze.runtimeconfig.dev.json
+D:\noops\maze\maze\bin\Debug\netcoreapp2.2\maze.dll
+D:\noops\maze\maze\bin\Debug\netcoreapp2.2\maze.pdb
+D:\noops\maze\maze\obj\Debug\netcoreapp2.2\maze.dll
+D:\noops\maze\maze\obj\Debug\netcoreapp2.2\maze.pdb
