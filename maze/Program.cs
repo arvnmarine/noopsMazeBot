@@ -25,7 +25,7 @@ namespace maze
             var nextMazePath = LogIn("arvnmarine");
             do {
                 
-                nextMazePath = GETData("https://api.noopschallenge.com" + nextMazePath);
+                nextMazePath = SendData("https://api.noopschallenge.com" + nextMazePath);
                 Console.WriteLine("Next maze: " + nextMazePath);
                 if (nextMazePath == null)
                 {
@@ -62,17 +62,17 @@ namespace maze
             return ParsedJsonData.nextMaze;
         }
 
-        //This function will be refactored
-        static string GETData(string url)
+
+        static string SendData(string url)
         {
-            var JsonData = GetDataFromAPI(url);
+            var JsonData = JsonConvert.DeserializeObject<JsonGetClass>(GetDataFromAPI(url));
             var Maze = JsonData.map;
             var StartingPos = JsonData.startingPosition;
             var EndingPos = JsonData.endingPosition;
             var path = A_star_pathFinder(Maze, StartingPos[1], StartingPos[0], EndingPos[1], EndingPos[0]);
             //DisplayMaze(Maze);
             //Console.WriteLine(path);
-            return POSTData(JsonData.mazePath, path);
+            return JsonConvert.DeserializeObject<JsonRaceResultClass>(POSTData(JsonData.mazePath, path)).nextMaze;
 
         }
 
@@ -100,7 +100,7 @@ namespace maze
             var ParsedJsonData = JsonConvert.DeserializeObject<JsonRaceResultClass>(responseString);
             Console.WriteLine(ParsedJsonData.result + " " + ParsedJsonData.elapsed + " " + ParsedJsonData.shortestSolutionLength + " " + ParsedJsonData.yourSolutionLength);
 
-            return ParsedJsonData.nextMaze ;
+            return responseString;
         }
 
         static void DisplayMaze(List<List<string>> Maze)
@@ -115,7 +115,7 @@ namespace maze
             }
         }
 
-        static JsonGetClass GetDataFromAPI(string url)
+        static string GetDataFromAPI(string url)
         {
             var request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -123,11 +123,11 @@ namespace maze
 
             var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
 
-            var ParsedJsonData = JsonConvert.DeserializeObject<JsonGetClass>(responseString);
+            //var ParsedJsonData = JsonConvert.DeserializeObject<JsonGetClass>(responseString);
             
             //Console.WriteLine(responseString);
 
-            return ParsedJsonData;
+            return responseString;
         }
         static string TracePath(Maze_element elem)
         {
@@ -178,7 +178,7 @@ namespace maze
                 {
                     Maze_element elem = new Maze_element(i,j);
                     elem.h = Math.Abs(i-Bx) + Math.Abs(j-By);
-                    if (Maze[i][j] == "A")
+                    if ((i==Ax) && (j==Ay))
                     {
                         elem.g = 0;
                         elem.f = elem.g + elem.h;   
@@ -225,7 +225,7 @@ namespace maze
                     }
                      
 
-                    if (Maze[x][y] == "B")
+                    if ((x==Bx) && (y==By))
                     {
                         stop = true;
                         //Console.WriteLine("Found B");
